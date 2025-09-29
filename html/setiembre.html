@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores Amarillas</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    /* Video de fondo */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Contenido encima del video */
+    .contenido {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding: 15px;
+    }
+
+    h1 {
+      font-family: 'Georgia', serif;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    }
+
+    h2 {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 2rem;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+      margin-top: 10px;
+    }
+
+    .btn-elegante {
+      margin-top: 25px;
+      background-color: #ffc107;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 25px;
+      border-radius: 25px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-elegante:hover {
+      transform: scale(1.05);
+      background-color: #ffca2c;
+    }
+  </style>
+</head>
+<body>
+  <!-- Video de fondo -->
+  <video autoplay muted loop playsinline class="video-background">
+    <source src="../img/VIDEO.mp4" type="video/mp4">
+    Tu navegador no soporta video en HTML5.
+  </video>
+
+  <!-- Contenido -->
+  <div class="contenido">
+    <h1>Esto es para ti</h1>
+    <h2>Feliz 2 de Septiembre</h2>
+    <a href="../html/setiembre1.html" class="btn btn-elegante">Aquí ENCONTRARAS ALGUITO VIRTUAL JOSELYN ❤️</a>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

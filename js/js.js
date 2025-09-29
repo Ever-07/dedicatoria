@@ -31,8 +31,8 @@ function actualizarContador() {
 function generarMeses() {
   const mesesGrid = document.getElementById("mesesGrid");
   const nombresMeses = [
-    "Enero","Febrero","Marzo","Abril","Mayo","Junio",
-    "Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"
+    "enero","febrero","marzo","abril","mayo","junio",
+    "julio","agosto","setiembre","octubre","noviembre","diciembre"
   ];
 
   const videos = [
@@ -44,7 +44,7 @@ function generarMeses() {
     "img/junio.mp4",
     "img/julio.mp4",
     "img/agosto.mp4",
-    "img/setiembre.mp4", // ojo al nombre real
+    "img/setiembre.mp4",
     "img/octubre.mp4",
     "img/noviembre.mp4",
     "img/diciembre.mp4"
@@ -59,12 +59,10 @@ function generarMeses() {
       const fechaMes = new Date(anio, mes, 1);
       if (fechaMes < fechaInicio || fechaMes > ahora) continue;
 
-      // Envolvemos cada tarjeta en un <a>
       const link = document.createElement("a");
-      link.href = `html/mes.html?anio=${anio}&mes=${mes}`;
+      link.href = `html/${nombresMeses[mes]}.html`; // 👈 ahora va a enero.html, febrero.html, etc.
       link.classList.add("mes-card");
 
-      // Video preview
       const video = document.createElement("video");
       video.src = videos[mes];
       video.autoplay = true;
@@ -73,13 +71,11 @@ function generarMeses() {
       video.playsInline = true;
       video.classList.add("video-preview");
 
-      // Info debajo
       const info = document.createElement("div");
       info.classList.add("mes-info");
 
       const titulo = document.createElement("h3");
-      titulo.textContent = `${nombresMeses[mes]} ${anio}`;
-
+      titulo.textContent = `${nombresMeses[mes][0].toUpperCase() + nombresMeses[mes].slice(1)} ${anio}`;
       const frase = document.createElement("p");
       frase.textContent = "Un mes especial contigo 💕";
 
