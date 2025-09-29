@@ -1,0 +1,115 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #ffd6e0, #fbb1d1);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 0 0 20px 20px;
+}
+
+.titulo-principal {
+  font-size: 2rem;
+  color: #e91e63;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.subtitulo {
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #ad1457;
+}
+
+/* Contador con reflejo brillante */
+.contador-efecto {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #ff99cc, #ff3385, #ff99cc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200%;
+  animation: brilloAnim 3s infinite linear, reflejo 2s infinite alternate;
+}
+
+@keyframes brilloAnim {
+  from { background-position: 0%; }
+  to { background-position: 200%; }
+}
+
+@keyframes reflejo {
+  from { text-shadow: 0 0 5px #fff, 0 0 10px #ff80ab, 0 0 20px #ff4081; }
+  to { text-shadow: 0 0 10px #fff, 0 0 20px #ff80ab, 0 0 30px #f50057; }
+}
+
+/* Grid de meses */
+.meses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.mes-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.mes-card:hover {
+  transform: scale(1.05);
+}
+
+/* Video ocupa toda la tarjeta */
+.video-preview {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.mes-info {
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.mes-info h3 {
+  font-size: 1rem;
+  color: #e91e63;
+}
+
+.mes-info p {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+}

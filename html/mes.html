@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Especial 💖</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header>
+    <h1 id="tituloMes" class="titulo-principal">Mes Especial 💕</h1>
+    <p id="tiempoMes" class="contador-efecto"></p>
+  </header>
+
+  <main>
+    <section class="contenido-mes">
+      <div class="fotos">
+        <h2>📸 Recuerdos</h2>
+        <img id="fotoMes" src="https://source.unsplash.com/600x400/?love" alt="Foto del mes">
+      </div>
+
+      <div class="frase">
+        <h2>💬 Frase</h2>
+        <p id="fraseMes">Una frase especial para este mes 💖</p>
+      </div>
+
+      <div class="video">
+        <h2>🎬 Recuerdo en Video</h2>
+        <video id="videoMes" width="100%" height="auto" controls>
+          <source src="" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </div>
+    </section>
+
+    <a href="index.html" class="btn-volver">⬅ Volver al Álbum</a>
+  </main>
+  
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const anio = parseInt(params.get("anio"));
+    const mes = parseInt(params.get("mes")); // 0 = enero
+
+    const nombresMeses = [
+      "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+      "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+    ];
+
+    document.getElementById("tituloMes").textContent = `${nombresMeses[mes]} ${anio}`;
+
+    const fechaInicio = new Date("2024-12-01T00:00:00");
+    const fechaMes = new Date(anio, mes, 1);
+
+    let diff = fechaMes - fechaInicio;
+    const dias = Math.floor(diff / (1000*60*60*24));
+    const horas = Math.floor(diff / (1000*60*60)) % 24;
+    const minutos = Math.floor(diff / (1000*60)) % 60;
+
+    document.getElementById("tiempoMes").textContent = 
+      `En este mes llevábamos ${dias} días, ${horas} horas y ${minutos} minutos juntos 💖`;
+
+    // Contenido de ejemplo
+    document.getElementById("fotoMes").src = "https://source.unsplash.com/600x400/?romantic,couple";
+    document.getElementById("fraseMes").textContent = "Este mes fue inolvidable contigo ✨";
+
+    // Videos por mes
+    const videos = [
+      "img/enero.mp4",      // 0
+      "img/febrero.mp4",    // 1
+      "img/marzo.mp4",      // 2
+      "img/abril.mp4",      // 3
+      "img/mayo.mp4",       // 4
+      "img/junio.mp4",      // 5
+      "img/julio.mp4",      // 6
+      "img/agosto.mp4",     // 7
+      "img/setiembre.mp4", // 8
+      "img/octubre.mp4",    // 9
+      "img/noviembre.mp4",  // 10
+      "img/diciembre.mp4"   // 11
+    ];
+
+    const videoSrc = videos[mes];
+    if (videoSrc) {
+      document.querySelector("#videoMes source").src = videoSrc;
+      document.getElementById("videoMes").load();
+    } else {
+      document.querySelector(".video").innerHTML = "<p>No hay video disponible 💕</p>";
+    }
+  </script>
+</body>
+</html>
