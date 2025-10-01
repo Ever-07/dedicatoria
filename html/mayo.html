@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eres Hermosa - Minecraft Style</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .minecraft-box {
+            position: relative;
+            background-color: #3a3a3a;
+            border: 4px solid #5a5a5a;
+            border-radius: 5px;
+            padding: 15px 25px;
+            box-shadow: 0 0 0 4px #2a2a2a, 
+                        inset 0 0 0 2px #7a7a7a,
+                        0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .minecraft-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff6b9d;
+            text-shadow: 2px 2px 0 #a83a6b, 
+                         3px 3px 0 #a83a6b;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        
+        .falling-element {
+            position: absolute;
+            color: #fff;
+            font-size: 1.2rem;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+            text-shadow: 0 0 5px rgba(255, 105, 180, 0.8);
+        }
+        
+        .heart {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #ff6b9d;
+            transform: rotate(45deg);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            background-color: #ff6b9d;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -8px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -8px;
+        }
+        
+        .pixel-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #ff6b9d;
+            pointer-events: none;
+            opacity: 0.8;
+            z-index: 5;
+        }
+        
+        .box-glow {
+            position: absolute;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            top: -20px;
+            left: -20px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .box-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #ff6b9d;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 8;
+        }
+    </style>
+</head>
+<body>
+    <div class="minecraft-box" id="minecraftBox">
+        <div class="box-glow" id="boxGlow"></div>
+        <div class="minecraft-text">ERES HERMOSA</div>
+    </div>
+
+    <script>
+        // Frases lindas con emoticones
+        const phrases = [
+            "Eres increíble 💖",
+            "Me haces feliz 😊",
+            "Tu sonrisa ilumina mi día 🌟",
+            "Eres perfecta 💕",
+            "Te adoro 🥰",
+            "Mi corazón es tuyo 💘",
+            "Eres mi sueño hecho realidad ✨"
+        ];
+        
+        // Emoticonos para corazones
+        const heartEmojis = ["💖", "💗", "💓", "💘", "💝", "💟", "💞", "💕"];
+        
+        // Crear elementos que caen (frases y emoticonos)
+        function createFallingElement() {
+            const element = document.createElement('div');
+            element.className = 'falling-element';
+            
+            if (Math.random() > 0.5) {
+                element.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+                element.style.fontSize = (0.8 + Math.random() * 0.7) + 'rem';
+            } else {
+                element.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                element.style.fontSize = (1.5 + Math.random() * 1) + 'rem';
+            }
+            
+            element.style.left = Math.random() * 100 + 'vw';
+            element.style.top = '-30px';
+            
+            const fallDuration = 5 + Math.random() * 10;
+            element.style.animation = `fall ${fallDuration}s linear forwards`;
+            
+            document.body.appendChild(element);
+            
+            const keyframes = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(calc(100vh + 30px)) rotate(${Math.random() * 360}deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            
+            const style = document.createElement('style');
+            style.innerHTML = keyframes;
+            document.head.appendChild(style);
+            
+            setTimeout(() => {
+                element.remove();
+                style.remove();
+            }, fallDuration * 1000);
+        }
+        
+        // Crear corazones animados
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            
+            const size = 8 + Math.random() * 16;
+            heart.style.width = size + 'px';
+            heart.style.height = size + 'px';
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-20px';
+            
+            const pinkShade = `hsl(${330 + Math.random() * 30}, 100%, ${60 + Math.random() * 20}%)`;
+            heart.style.backgroundColor = pinkShade;
+            
+            const duration = 8 + Math.random() * 12;
+            const drift = (Math.random() - 0.5) * 150;
+            
+            const keyframes = `
+                @keyframes heartFall {
+                    to {
+                        transform: translate(calc(${drift}px + ${Math.random() * 10 - 5}vw), calc(100vh + 20px)) rotate(${360 + Math.random() * 360}deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            
+            const style = document.createElement('style');
+            style.innerHTML = keyframes;
+            document.head.appendChild(style);
+            
+            heart.style.animation = `heartFall ${duration}s linear forwards`;
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+                style.remove();
+            }, duration * 1000);
+        }
+        
+        // Crear partículas pixeladas
+        function createPixelParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'pixel-particle';
+            
+            const size = 4 + Math.random() * 4;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            const pinkShade = `hsl(${330 + Math.random() * 30}, 100%, ${60 + Math.random() * 20}%)`;
+            particle.style.backgroundColor = pinkShade;
+            
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 30 + Math.random() * 70;
+            const duration = 0.5 + Math.random() * 1.5;
+            
+            const keyframes = `
+                @keyframes pixelMove {
+                    to {
+                        transform: translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px);
+                        opacity: 0;
+                    }
+                }
+            `;
+            
+            const style = document.createElement('style');
+            style.innerHTML = keyframes;
+            document.head.appendChild(style);
+            
+            particle.style.animation = `pixelMove ${duration}s ease-out forwards`;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+                style.remove();
+            }, duration * 1000);
+        }
+        
+        // Efecto al hacer clic (explosión pixelada)
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 15; i++) {
+                createPixelParticle(e.clientX, e.clientY);
+            }
+        });
+        
+        // Efecto especial para el rectángulo
+        const minecraftBox = document.getElementById('minecraftBox');
+        const boxGlow = document.getElementById('boxGlow');
+        
+        // Efecto de partículas que emanan del marco
+        function emitBoxParticles() {
+            const rect = minecraftBox.getBoundingClientRect();
+            const sides = [
+                { x1: rect.left, y1: rect.top, x2: rect.right, y2: rect.top }, // arriba
+                { x1: rect.right, y1: rect.top, x2: rect.right, y2: rect.bottom }, // derecha
+                { x1: rect.left, y1: rect.bottom, x2: rect.right, y2: rect.bottom }, // abajo
+                { x1: rect.left, y1: rect.top, x2: rect.left, y2: rect.bottom } // izquierda
+            ];
+            
+            for (let i = 0; i < 8; i++) {
+                const side = sides[Math.floor(Math.random() * sides.length)];
+                const progress = Math.random();
+                const x = side.x1 + (side.x2 - side.x1) * progress;
+                const y = side.y1 + (side.y2 - side.y1) * progress;
+                
+                const particle = document.createElement('div');
+                particle.className = 'box-particle';
+                
+                const size = 3 + Math.random() * 5;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                const pinkShade = `hsl(${330 + Math.random() * 30}, 100%, ${60 + Math.random() * 20}%)`;
+                particle.style.backgroundColor = pinkShade;
+                
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                
+                const angle = Math.atan2(rect.top + rect.height/2 - y, rect.left + rect.width/2 - x);
+                const distance = 30 + Math.random() * 50;
+                const duration = 1 + Math.random();
+                
+                const keyframes = `
+                    @keyframes boxParticleMove-${Date.now()}-${i} {
+                        to {
+                            transform: translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                
+                const style = document.createElement('style');
+                style.innerHTML = keyframes;
+                document.head.appendChild(style);
+                
+                particle.style.animation = `boxParticleMove-${Date.now()}-${i} ${duration}s ease-out forwards`;
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                    style.remove();
+                }, duration * 1000);
+            }
+        }
+        
+        let boxParticleInterval;
+        
+        minecraftBox.addEventListener('mouseenter', () => {
+            minecraftBox.style.transform = 'scale(1.05)';
+            minecraftBox.style.boxShadow = '0 0 0 4px #2a2a2a, inset 0 0 0 2px #9a9a9a, 0 0 30px rgba(255, 105, 157, 0.7)';
+            boxGlow.style.opacity = '1';
+            boxGlow.style.borderColor = '#ff6b9d';
+            boxGlow.style.boxShadow = '0 0 20px #ff6b9d';
+            
+            // Iniciar emisión de partículas
+            boxParticleInterval = setInterval(emitBoxParticles, 200);
+        });
+        
+        minecraftBox.addEventListener('mouseleave', () => {
+            minecraftBox.style.transform = '';
+            minecraftBox.style.boxShadow = '0 0 0 4px #2a2a2a, inset 0 0 0 2px #7a7a7a, 0 0 20px rgba(0, 0, 0, 0.5)';
+            boxGlow.style.opacity = '0';
+            
+            // Detener emisión de partículas
+            clearInterval(boxParticleInterval);
+        });
+        
+        // Iniciar generación de elementos que caen
+        setInterval(createFallingElement, 1000);
+        setInterval(createHeart, 700);
+    </script>
+</body>
+</html>

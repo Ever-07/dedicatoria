@@ -241,13 +241,16 @@
     @keyframes flower__g-fr-ans{0%,100%{transform:rotate(2deg)} 50%{transform:rotate(4deg)}}
     .flower__g-fr .leaf{
       width:30vmin; height:50vmin; border-top-left-radius:100%; border-left:2vmin solid #079097;
-      -webkit-mask-image:linear-gradient(to top, transparent 25%, #079097 50%); position:relative; z-index:1;
+      -webkit-mask-image:linear-gradient(to top, transparent 25%, #079097 50%);
+      mask-image:linear-gradient(to top, transparent 25%, #079097 50%);
+      position:relative; z-index:1;
     }
     .flower__g-fr__leaf{
       position:absolute; top:0; left:0; width:10vmin; height:10vmin; border-radius:100% 0% 0% 100%/100% 100% 0% 0%;
       box-shadow:inset 0 2px 1vmin hsla(184,97%,58%,.2);
       background-image:linear-gradient(to bottom left, transparent, var(--dark-color) 98%), linear-gradient(to bottom right, #23f0ff 45%, transparent 50%, transparent);
       -webkit-mask-image:linear-gradient(135deg, #159faa 40%, transparent 50%, transparent);
+      mask-image:linear-gradient(135deg, #159faa 40%, transparent 50%, transparent);
     }
     .flower__g-fr__leaf--1{left:20vmin; transform:rotate(45deg); animation:flower__g-fr-leaft-ans-1 .5s 5.2s linear backwards}
     @keyframes flower__g-fr-leaft-ans-1{0%{transform-origin:left; transform:rotate(45deg) scale(0)}}
@@ -265,22 +268,37 @@
 
     .long-g{position:absolute; bottom:25vmin; left:-42vmin; transform-origin:bottom left}
     .long-g--1{bottom:0; transform:scale(.8) rotate(-5deg)}
-    .long-g--1 .leaf{-webkit-mask-image:linear-gradient(to top, transparent 40%, #079097 80%)!important}
+    .long-g--1 .leaf{
+      -webkit-mask-image:linear-gradient(to top, transparent 40%, #079097 80%)!important;
+      mask-image:linear-gradient(to top, transparent 40%, #079097 80%)!important;
+    }
     .long-g--1 .leaf--1{--w:5vmin; --h:60vmin; left:-2vmin; transform:rotate(3deg) rotateY(-180deg)}
     .long-g--2,.long-g--3{bottom:-3vmin; left:-35vmin; transform-origin:center; transform:scale(.6) rotateX(60deg)}
-    .long-g--2 .leaf,.long-g--3 .leaf{-webkit-mask-image:linear-gradient(to top, transparent 50%, #079097 80%)!important}
+    .long-g--2 .leaf,.long-g--3 .leaf{
+      -webkit-mask-image:linear-gradient(to top, transparent 50%, #079097 80%)!important;
+      mask-image:linear-gradient(to top, transparent 50%, #079097 80%)!important;
+    }
     .long-g--2 .leaf--1,.long-g--3 .leaf--1{left:-1vmin; transform:rotateY(-180deg)}
     .long-g--3{left:-17vmin; bottom:0}
-    .long-g--3 .leaf{-webkit-mask-image:linear-gradient(to top, transparent 40%, #079097 80%)!important}
+    .long-g--3 .leaf{
+      -webkit-mask-image:linear-gradient(to top, transparent 40%, #079097 80%)!important;
+      mask-image:linear-gradient(to top, transparent 40%, #079097 80%)!important;
+    }
     .long-g--4{left:25vmin; bottom:-3vmin; transform-origin:center; transform:scale(.6) rotateX(60deg)}
-    .long-g--4 .leaf{-webkit-mask-image:linear-gradient(to top, transparent 50%, #079097 80%)!important}
+    .long-g--4 .leaf{
+      -webkit-mask-image:linear-gradient(to top, transparent 50%, #079097 80%)!important;
+      mask-image:linear-gradient(to top, transparent 50%, #079097 80%)!important;
+    }
     .long-g--5{left:42vmin; bottom:0; transform:scale(.8) rotate(2deg)}
     .long-g--6{left:0; bottom:-20vmin; z-index:100; filter:blur(.3vmin); transform:scale(.8) rotate(2deg)}
     .long-g--7{left:35vmin; bottom:20vmin; z-index:-1; filter:blur(.3vmin); transform:scale(.6) rotate(2deg); opacity:.7}
     .long-g .leaf{
       --w:15vmin; --h:40vmin; --c:#1aaa15; position:absolute; bottom:0; width:var(--w); height:var(--h);
       border-top-left-radius:100%; border-left:2vmin solid var(--c);
-      -webkit-mask-image:linear-gradient(to top, transparent 20%, var(--dark-color)); transform-origin:bottom center;
+      -webkit-mask-image:linear-gradient(to top, transparent 20%, var(--dark-color));
+      mask-image:linear-gradient(to top, transparent 20%, var(--dark-color));
+      mask-image:linear-gradient(to top, transparent 20%, var(--dark-color));
+      transform-origin:bottom center;
     }
     .long-g .leaf--0{left:2vmin; animation:leaf-ans-1 4s linear infinite}
     .long-g .leaf--1{--w:5vmin; --h:60vmin; animation:leaf-ans-1 4s linear infinite}

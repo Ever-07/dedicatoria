@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lluvia de Te Amo con Efecto Explosivo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            touch-action: manipulation;
+            cursor: pointer;
+        }
+
+        .love-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .love-word {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 20px;
+            user-select: none;
+            animation: fall linear infinite;
+            text-shadow: 0 0 5px #ff00aa;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        .i-love-you {
+            position: relative;
+            font-size: 8vw;
+            font-weight: bold;
+            color: #ff0066;
+            text-shadow: 0 0 20px #ff00aa, 
+                         0 0 40px #ff00aa, 
+                         0 0 60px #ff00aa;
+            transform-style: preserve-3d;
+            animation: float 3s ease-in-out infinite alternate;
+            z-index: 100;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotateX(0) rotateY(0);
+                text-shadow: 0 0 20px #ff00aa, 
+                             0 0 40px #ff00aa, 
+                             0 0 60px #ff00aa;
+            }
+            100% {
+                transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
+                text-shadow: 0 0 30px #ff00aa, 
+                             0 0 60px #ff00aa, 
+                             0 0 90px #ff00aa;
+            }
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translateY(-100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="i-love-you">I LOVE YOU</div>
+    <div class="love-rain" id="loveRain"></div>
+
+    <script>
+        // Crear lluvia de "Te Amo"
+        function createLoveRain() {
+            const loveRain = document.getElementById('loveRain');
+            const words = ["TE AMO", "I LOVE YOU", "❤️", "TI AMO", "JE T'AIME", "愛してる", "ICH LIEBE DICH"];
+            
+            setInterval(() => {
+                const loveWord = document.createElement('div');
+                loveWord.className = 'love-word';
+                loveWord.textContent = words[Math.floor(Math.random() * words.length)];
+                loveWord.style.left = Math.random() * 100 + 'vw';
+                loveWord.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                loveWord.style.opacity = Math.random() * 0.5 + 0.3;
+                loveWord.style.fontSize = (Math.random() * 10 + 16) + 'px';
+                
+                loveRain.appendChild(loveWord);
+                
+                // Eliminar después de animación
+                setTimeout(() => {
+                    loveWord.remove();
+                }, 5000);
+            }, 200);
+        }
+
+        // Crear efecto de corazones explosivos
+        function createHearts(x, y) {
+            const colors = ['#ff0066', '#ff00aa', '#ff33cc', '#ff66cc', '#ff99cc'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+                heart.style.setProperty('--angle', Math.random() * 360 + 'deg');
+                heart.style.setProperty('--distance', Math.random() * 100 + 50 + 'px');
+                
+                document.body.appendChild(heart);
+                
+                // Eliminar después de animación
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            }
+        }
+
+        // Efecto 3D para el texto "I LOVE YOU"
+        function apply3DEffect() {
+            const text = document.querySelector('.i-love-you');
+            let timeout;
+            
+            document.addEventListener('mousemove', (e) => {
+                clearTimeout(timeout);
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                text.style.transform = `translateY(-20px) rotateX(${yAxis}deg) rotateY(${xAxis}deg)`;
+                
+                timeout = setTimeout(() => {
+                    text.style.transform = 'translateY(-20px) rotateX(0) rotateY(0)';
+                }, 100);
+            });
+        }
+
+        // Inicializar efectos
+        window.addEventListener('load', () => {
+            createLoveRain();
+            apply3DEffect();
+            
+            // Para dispositivos táctiles
+            document.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                createHearts(e.touches[0].clientX, e.touches[0].clientY);
+            });
+            
+            // Para mouse
+            document.addEventListener('click', (e) => {
+                createHearts(e.clientX, e.clientY);
+            });
+        });
+    </script>
+</body>
+</html>

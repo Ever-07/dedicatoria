@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lluvia de Te Amo Glitch</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            cursor: pointer;
+        }
+        
+        .te-amo {
+            position: fixed;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            user-select: none;
+            text-shadow: 0 0 5px #0f0;
+            animation: fall linear forwards;
+        }
+
+        .glitch-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+        }
+
+        .glitch {
+            color: #ff0000;
+            font-family: 'Arial', sans-serif;
+            font-size: 4em;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            animation: glitch 3s infinite;
+            text-shadow: 2px 2px #00ffff, -2px -2px #ff00ff;
+        }
+
+        .glitch:before,
+        .glitch:after {
+            content: "I LOVE YOU";
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .glitch:before {
+            left: 2px;
+            text-shadow: -2px 0 #00ffff;
+            animation: glitch-top 2s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+        }
+
+        .glitch:after {
+            left: -2px;
+            text-shadow: 2px 0 #ff00ff;
+            animation: glitch-bottom 3s infinite linear alternate-reverse;
+            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-top {
+            0% { transform: translate(0); opacity: 1; }
+            33% { transform: translate(-5px, 3px); opacity: 0.8; }
+            66% { transform: translate(4px, -2px); opacity: 0.6; }
+            100% { transform: translate(0); opacity: 1; }
+        }
+
+        @keyframes glitch-bottom {
+            0% { transform: translate(0); opacity: 1; }
+            33% { transform: translate(3px, -3px); opacity: 0.8; }
+            66% { transform: translate(-4px, 2px); opacity: 0.6; }
+            100% { transform: translate(0); opacity: 1; }
+        }
+
+        .explosion {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glitch-container">
+        <div class="glitch">I LOVE YOU</div>
+    </div>
+
+    <script>
+        function crearTeAmo() {
+            const teAmo = document.createElement('div');
+            teAmo.className = 'te-amo';
+            teAmo.textContent = 'Te amo';
+            teAmo.style.left = Math.random() * 100 + 'vw';
+            teAmo.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            teAmo.style.animationDelay = Math.random() * 2 + 's';
+            
+            teAmo.onclick = function(e) {
+                e.stopPropagation();
+                explotar(this);
+                this.remove();
+            };
+
+            document.body.appendChild(teAmo);
+            
+            teAmo.addEventListener('animationend', () => {
+                teAmo.remove();
+            });
+        }
+
+        function explotar(elemento) {
+            const rect = elemento.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            for(let i = 0; i < 30; i++) {
+                const particula = document.createElement('div');
+                particula.className = 'explosion';
+                particula.style.left = x + 'px';
+                particula.style.top = y + 'px';
+                
+                const angulo = (Math.PI * 2 * i) / 30;
+                const velocidad = 5 + Math.random() * 5;
+                const dx = Math.cos(angulo) * velocidad;
+                const dy = Math.sin(angulo) * velocidad;
+
+                document.body.appendChild(particula);
+
+                animateParticula(particula, dx, dy);
+            }
+        }
+
+        function animateParticula(particula, dx, dy) {
+            let x = parseFloat(particula.style.left);
+            let y = parseFloat(particula.style.top);
+            let gravedad = 0.3;
+            let decaimiento = 0.9;
+            let alpha = 1;
+
+            function update() {
+                x += dx;
+                y += dy;
+                dy += gravedad;
+                dx *= decaimiento;
+                alpha -= 0.03;
+
+                particula.style.left = x + 'px';
+                particula.style.top = y + 'px';
+                particula.style.opacity = alpha;
+
+                if(alpha > 0 && y < window.innerHeight) {
+                    requestAnimationFrame(update);
+                } else {
+                    particula.remove();
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        setInterval(crearTeAmo, 100);
+
+        document.body.onclick = () => {
+            crearTeAmo();
+            crearTeAmo();
+            crearTeAmo();
+        };
+    </script>
+</body>
+</html>

@@ -47,7 +47,8 @@ function generarMeses() {
     "img/setiembre.mp4",
     "img/octubre.mp4",
     "img/noviembre.mp4",
-    "img/diciembre.mp4"
+    "img/diciembre.mp4",
+    "img/todocoloeanik.mp4"
   ];
 
   const ahora = new Date();
